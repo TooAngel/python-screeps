@@ -19,8 +19,11 @@ class Connection(object):
         data = dict(email=self.email, password=self.password)
         response = requests.post(url=url, data=data)
         self.token = response.json()['token']
+        
 
     def get_me(self):
+        if not self.token:
+            self.signin()
         url = '{}/auth/me'.format(self.url)
         headers = {'X-Token': self.token, 'X-Username': self.token}
         response = requests.get(url=url, headers=headers)
