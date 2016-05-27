@@ -1,0 +1,9 @@
+language: python
+python:
+  - "3.5"
+
+install: 
+  - "pip install flake8"
+  - "pip install flake8-import-order"
+
+script: "flake8 *.py"
