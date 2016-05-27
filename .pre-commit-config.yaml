@@ -1,0 +1,6 @@
+-   repo: git@github.com:TooAngel/pre-commit-hooks.git
+    sha: bebcf7b62f18c5cdadf19a29f84263c8469c4a46
+    hooks:
+    - id: pep8
+    - id: flake8
+
