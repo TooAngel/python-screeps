@@ -18,8 +18,8 @@ class Connection(object):
         url = '{}/auth/signin'.format(self.url)
         data = dict(email=self.email, password=self.password)
         response = requests.post(url=url, data=data)
+        response.raise_for_status()
         self.token = response.json()['token']
-        
 
     def get_me(self):
         if not self.token:
@@ -36,6 +36,15 @@ class Connection(object):
         headers = {'X-Token': self.token, 'X-Username': self.token}
         data = {'expression': command}
         response = requests.post(url=url, headers=headers, data=data)
+        return response.json()
+
+    def get_memory(self, path=''):
+        if not self.token:
+            self.signin()
+        url = '{}/user/memory'.format(self.url)
+        headers = {'X-Token': self.token, 'X-Username': self.token}
+        data = {'path': path}
+        response = requests.get(url=url, headers=headers, data=data)
         return response.json()
 
     # Websocket connection
